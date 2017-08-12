@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">JASCoffee</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">编号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="action_sign_out_short">退出登录</string>
+    <string name="error_invalid_email">请输入编号</string>
+    <string name="error_invalid_password">请输入密码</string>
+    <string name="permission_rationale">"Location permissions are needed for app."</string>
+    <string name="loading">请求中...</string>
+    <string name="tryagain">请求失败，重新请求？</string>
+    <string name="cancle">取消</string>
+    <string name="ok">确定</string>
+    <string name="str_success">登录成功</string>
+    <string name="erro">系统异常</string>
+    <string name="signouthint">是否退出登录?</string>
+</resources>
