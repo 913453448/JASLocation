@@ -43,7 +43,15 @@
             </intent-filter>
         </activity>
         <!--百度地图定位service-->
-        <service android:name=".service.LocationService" />
+        <service
+            android:name=".service.LocationService"
+            android:process=":service" />
+        <service
+            android:name=".service.CancelService"
+            android:process=":service" />
+        <service
+            android:name=".service.ProtectService"
+            android:process=":service" />
         <!--百度地图定位service-->
         <service
             android:name="com.baidu.location.f"

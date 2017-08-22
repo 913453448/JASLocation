@@ -1,16 +1,21 @@
 package com.jascaffe.jaslocation.service;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.jascaffe.jaslocation.R;
 import com.jascaffe.jaslocation.net.OkHttpClientManager;
 import com.jascaffe.jaslocation.utils.AbAppConfig;
+import com.jascaffe.jaslocation.utils.AbAppUtil;
 import com.jascaffe.jaslocation.utils.AbLogUtil;
 import com.jascaffe.jaslocation.utils.AbSharedUtil;
 import com.jascaffe.jaslocation.utils.SecurityUtil;
@@ -38,6 +43,19 @@ public class LocationService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Notification.Builder builder = new Notification.Builder(this);
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+            startForeground(250, builder.build());
+            startService(new Intent(this, CancelService.class));
+        } else {
+            startForeground(250, new Notification());
+        }
     }
 
     @Override
@@ -104,6 +122,9 @@ public class LocationService extends Service {
                     AbSharedUtil.putString(LocationService.this,
                             AbAppConfig.ALTITUDE, altitude + "");
                 }
+                Log.e("TAG","latitude==>"+latitude);
+                Log.e("TAG","longitude==>"+longitude);
+                Log.e("TAG","altitude==>"+altitude);
             } catch (Exception e) {
             }
         }
@@ -136,6 +157,9 @@ public class LocationService extends Service {
                     if (!TextUtils.isEmpty(longitude) && !TextUtils.isEmpty(latitude)) {
                         doUploadGPS(engineerId, longitude, latitude, altitude, sign, times);
                     }
+                }
+                if (!AbAppUtil.isServiceRunning(LocationService.this, ProtectService.class.getName())) {
+                    startService(new Intent(LocationService.this, ProtectService.class));
                 }
             }
         };
