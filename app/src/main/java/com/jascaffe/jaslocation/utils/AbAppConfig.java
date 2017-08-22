@@ -9,7 +9,7 @@ public class AbAppConfig {
      */
     public static final int LOCATION_TIME = 1000;
     public static final long TIMER_DURATION = 1000 * 3;
-    public static final long TIMER_DURATION2 = 100;
+    public static final long TIMER_DURATION2 = 1000;
     /**
      * 默认 SharePreferences文件名.
      */
